@@ -30,12 +30,12 @@ public class User implements Identifiable {
     private String encodedPassword;
 
     public User(String username, String firstName, String lastName, String email) {
-        this.userId = generateId();
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.encodedPassword = "";
+        this.userId = generateId();
     }
 
     public User(String username, String firstName, String lastName, String email, String encodedPassword) {
@@ -44,10 +44,11 @@ public class User implements Identifiable {
         this.lastName = lastName;
         this.email = email;
         this.encodedPassword = encodedPassword;
+        this.userId = generateId();
     }
 
     @Override
     public String generateId() {
-        return "user::"+ UUID.randomUUID();
+        return "user::"+ this.username;
     }
 }

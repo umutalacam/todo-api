@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.umutalacam.todo.data.entity.Todo;
+import org.umutalacam.todo.data.entity.User;
 import org.umutalacam.todo.service.TodoService;
 import org.umutalacam.todo.service.UserService;
 
@@ -27,11 +28,14 @@ public class ToDoApplication {
 
     @PostConstruct
     public void initDatabase(){
-        Todo todo1 = new Todo("user::c485c5bb-99a4-49c9-83df-4d32f1aed420", "Todo Task 3", "Todo task descrip", Collections.emptyList());
-        todoService.saveTodo(todo1);
+        User u1 = new User("john.doe", "John", "Doe", "bahar@gmail.com");
+        try {
+            userService.createNewUser(u1);
+        } catch (Exception exception) {
+            System.err.println("User already exists.");
+        }
 
         List<Todo> todos = todoService.getTodosForUser("user::c485c5bb-99a4-49c9-83df-4d32f1aed420");
-
         todos.forEach(System.out::println);
     }
 

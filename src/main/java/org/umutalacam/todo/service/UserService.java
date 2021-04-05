@@ -1,5 +1,6 @@
 package org.umutalacam.todo.service;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.umutalacam.todo.data.entity.User;
 import org.umutalacam.todo.data.repository.UserRepository;
@@ -13,9 +14,25 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void saveUser(User user){
-        // TODO: Error handling
-        userRepository.save(user);
+    public void createNewUser(User user){
+        String username = user.getUsername();
+        User u = getUserByUsername(username);
+        if (u != null) {
+            // Username already exists
+            throw new DataIntegrityViolationException("User already exists.");
+        } else {
+            userRepository.save(user);
+        }
+    }
+
+    public void updateUser(User user) {
+        String username = user.getUsername();
+        User u = getUserByUsername(username);
+        if (u == null) {
+            throw new DataIntegrityViolationException("User does not exist.");
+        } else {
+            userRepository.save(user);
+        }
     }
 
     public void deleteUserById(String userId){

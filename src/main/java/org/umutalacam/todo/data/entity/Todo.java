@@ -1,27 +1,30 @@
 package org.umutalacam.todo.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.internal.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
-import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
-import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
-import org.springframework.data.couchbase.core.mapping.id.IdAttribute;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
 @Data
 @Document
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Todo implements Identifiable{
     @Id
     private String documentId;
 
     @NotNull
     @Field
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String ownerId;
 
     @NotNull

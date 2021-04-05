@@ -1,4 +1,4 @@
-package org.umutalacam.todo;
+package org.umutalacam.todo.data;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
@@ -30,4 +30,6 @@ public class CouchbaseDataConfiguration extends AbstractCouchbaseConfiguration {
         // use "type" instead of "_class"
         return "type";
     }
+
+
 }
