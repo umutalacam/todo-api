@@ -57,4 +57,17 @@ public class Todo implements Identifiable{
         return "todo::" + UUID.randomUUID();
     }
 
+    @Override
+    public String toString() {
+        return "Todo {" +
+                "documentId='" + documentId + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", tags=" + tags +
+                ", created=" + created +
+                ", modified=" + modified +
+                ", completed=" + completed +
+                '}';
+    }
 }

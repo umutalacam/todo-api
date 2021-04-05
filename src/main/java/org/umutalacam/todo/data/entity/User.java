@@ -24,20 +24,25 @@ public class User implements Identifiable {
     private String lastName;
     @Field
     @NotNull
+    private String email;
+    @Field
+    @NotNull
     private String encodedPassword;
 
-    public User(String username, String firstName, String lastName) {
+    public User(String username, String firstName, String lastName, String email) {
         this.userId = generateId();
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.encodedPassword = UUID.randomUUID().toString();
+        this.email = email;
+        this.encodedPassword = "";
     }
 
-    public User(String username, String firstName, String lastName, String encodedPassword) {
+    public User(String username, String firstName, String lastName, String email, String encodedPassword) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.encodedPassword = encodedPassword;
     }
 

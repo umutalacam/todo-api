@@ -1,23 +1,25 @@
 package org.umutalacam.todo;
 
-import com.sun.tools.javac.comp.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.umutalacam.todo.data.entity.User;
-import org.umutalacam.todo.data.repository.TodoRepository;
-import org.umutalacam.todo.data.repository.UserRepository;
+import org.umutalacam.todo.data.entity.Todo;
+import org.umutalacam.todo.service.TodoService;
+import org.umutalacam.todo.service.UserService;
 
 import javax.annotation.PostConstruct;
-import javax.swing.*;
+import java.util.Collections;
+import java.util.List;
 
 @SpringBootApplication
 public class ToDoApplication {
 
+
     @Autowired
-    UserRepository userRepository;
+    TodoService todoService;
     @Autowired
-    TodoRepository todoRepository;
+    UserService userService;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ToDoApplication.class, args);
@@ -25,8 +27,12 @@ public class ToDoApplication {
 
     @PostConstruct
     public void initDatabase(){
-        User user = new User("umutcanalacam", "Umut Can", "Alaçam");
-        userRepository.save(user);
+        Todo todo1 = new Todo("user::c485c5bb-99a4-49c9-83df-4d32f1aed420", "Todo Task 3", "Todo task descrip", Collections.emptyList());
+        todoService.saveTodo(todo1);
+
+        List<Todo> todos = todoService.getTodosForUser("user::c485c5bb-99a4-49c9-83df-4d32f1aed420");
+
+        todos.forEach(System.out::println);
     }
 
 }
