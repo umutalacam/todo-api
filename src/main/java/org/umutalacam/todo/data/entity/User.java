@@ -1,15 +1,19 @@
 package org.umutalacam.todo.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.internal.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
-import java.util.UUID;
-
 @Data
 @Document
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 public class User implements Identifiable {
     @Id
     private String userId;
@@ -27,23 +31,25 @@ public class User implements Identifiable {
     private String email;
     @Field
     @NotNull
-    private String encodedPassword;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonAlias("password")
+    private String password;
 
     public User(String username, String firstName, String lastName, String email) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.encodedPassword = "";
+        this.password = "";
         this.userId = generateId();
     }
 
-    public User(String username, String firstName, String lastName, String email, String encodedPassword) {
+    public User(String username, String firstName, String lastName, String email, String password) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.encodedPassword = encodedPassword;
+        this.password = password;
         this.userId = generateId();
     }
 
