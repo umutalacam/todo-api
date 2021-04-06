@@ -8,6 +8,7 @@ import org.umutalacam.todo.data.entity.Todo;
 import org.umutalacam.todo.security.UserDetail;
 import org.umutalacam.todo.service.TodoService;
 
+import javax.xml.ws.Response;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +114,30 @@ public class TodoController {
             responseEntity = new ResponseEntity<>(todo, HttpStatus.OK);
         }
 
+        return responseEntity;
+    }
+
+
+    @DeleteMapping(path = "/todo/{id}")
+    public ResponseEntity<Object> deleteTodo(@PathVariable String id){
+        String todoId = "todo::"+id;
+        // Check if to do object with the given id is exists.
+        Todo oldTodo = todoService.getTodoById(todoId);
+
+        ResponseEntity<Object> responseEntity;
+
+        if (oldTodo == null) {
+            // To do not found
+            HashMap<String, String> errorMessage = new HashMap<>();
+            errorMessage.put("error", "Todo with the given id is not found.");
+            responseEntity = new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+        } else {
+            // Delete to do
+            todoService.deleteTodoById(todoId);
+            HashMap<String, String> responseBody = new HashMap<>();
+            responseBody.put("message", "Todo deleted successfully.");
+            responseEntity = new ResponseEntity<>(responseBody, HttpStatus.OK);
+        }
         return responseEntity;
     }
 
