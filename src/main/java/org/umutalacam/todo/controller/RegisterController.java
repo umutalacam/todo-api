@@ -1,5 +1,6 @@
 package org.umutalacam.todo.controller;
 
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,8 +10,7 @@ import org.umutalacam.todo.data.entity.User;
 import org.umutalacam.todo.security.UserDataValidator;
 import org.umutalacam.todo.service.UserService;
 
-import javax.naming.directory.InvalidAttributeValueException;
-import javax.xml.ws.Response;
+import javax.management.InvalidAttributeValueException;
 import java.util.HashMap;
 
 @RestController
@@ -28,8 +28,7 @@ public class RegisterController {
         HashMap<String, Object> responseBody = new HashMap<>();
 
         try {
-            user = UserDataValidator.validateUserForInsertion(user);
-            // TODO: DB insertion validation
+            UserDataValidator.validateUserForInsertion(user);
             userService.createNewUser(user);
             responseBody.put("message", "User registered successfully");
             return new ResponseEntity<>(responseBody, HttpStatus.OK);
@@ -38,11 +37,13 @@ public class RegisterController {
             System.err.println("Bad request on register!");
             responseBody.put("error", exception.getMessage());
             return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-        }
-        catch (Exception exception) {
+
+        } catch (Exception exception) {
             responseBody.put("error", "Internal server error");
             exception.printStackTrace();
             return new ResponseEntity<>(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
+
     }
 }

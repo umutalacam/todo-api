@@ -10,6 +10,10 @@ import org.umutalacam.todo.service.UserService;
 
 import javax.management.InvalidAttributeValueException;
 
+
+/**
+ * Helper class for User data validation
+ */
 @Component
 @Scope("singleton")
 public class UserDataValidator {
@@ -29,7 +33,7 @@ public class UserDataValidator {
      * @return The same user object
      * @throws InvalidAttributeValueException | Exception
      */
-    public static User validateUserForInsertion(User user) throws Exception {
+    public static User validateUserForInsertion(User user) throws InvalidAttributeValueException {
         String username = user.getUsername();
         String password = user.getPassword();
 

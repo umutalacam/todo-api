@@ -26,6 +26,10 @@ public class UserDetail implements UserDetails {
         return user.getPassword();
     }
 
+    public User getPrincipalUser(){
+        return this.user;
+    }
+
     @Override
     public String getUsername() {
         return user.getUsername();

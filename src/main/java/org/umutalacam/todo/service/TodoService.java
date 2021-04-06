@@ -8,7 +8,6 @@ import org.umutalacam.todo.data.repository.TodoRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @Service
 public class TodoService {
@@ -32,9 +31,15 @@ public class TodoService {
         Todo oldTodo = getTodoById(todoId);
 
         if (oldTodo == null)
-            throw new DataIntegrityViolationException("Todo object with the given id does not exist.");
+            throw new DataIntegrityViolationException("Can't update: Todo object with the given id does not exist.");
 
-        todoRepository.save(oldTodo);
+        // Recover null fields
+        if (todo.getOwnerId() == null) todo.setOwnerId(oldTodo.getOwnerId());
+        if (todo.getTitle() == null) todo.setTitle(oldTodo.getTitle());
+        if (todo.getDescription() == null) todo.setDescription(oldTodo.getDescription());
+        if (todo.getTags() == null) todo.setTags(oldTodo.getTags());
+
+        todoRepository.save(todo);
     }
 
 
