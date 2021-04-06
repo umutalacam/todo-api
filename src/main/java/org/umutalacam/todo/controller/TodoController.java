@@ -8,10 +8,10 @@ import org.umutalacam.todo.data.entity.Todo;
 import org.umutalacam.todo.security.UserDetail;
 import org.umutalacam.todo.service.TodoService;
 
-import javax.xml.ws.Response;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller for To Do service endpoints.
@@ -27,11 +27,21 @@ public class TodoController {
     }
 
     @GetMapping(path = "/todo", produces = "application/json")
-    public List<Todo> getAllTodosForUser(@AuthenticationPrincipal UserDetail principal){
-        // Todo: Error handling
-        // Todo: Filtered requests
+    public List<Todo> getAllTodosForUser(@AuthenticationPrincipal UserDetail principal, @RequestParam(required = false) String filterBy) {
+        // Get current user
         String principalUserId = principal.getPrincipalUser().getUserId();
-        return this.todoService.getTodosForUser(principalUserId);
+
+        List<Todo> todos = todoService.getTodosForUser(principalUserId);
+        if (filterBy != null) {
+            // Filter to do objects
+            List<Todo> filteredTodos = todos.stream().filter(todo -> {
+                List<String> todoTags = todo.getTags();
+                return todoTags != null && todoTags.contains(filterBy);
+            }).collect(Collectors.toList());
+            return filteredTodos;
+        }
+
+        return todos;
     }
 
     @GetMapping(path = "/todo/{id}", produces = "application/json")
