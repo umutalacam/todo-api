@@ -40,13 +40,13 @@ public class Todo implements Identifiable{
     private List<String> tags;
 
     @Field
-    private Timestamp created;
+    private long created;
 
     @Field
-    private Timestamp modified;
+    private long modified;
 
     @Field
-    private Timestamp completed;
+    private long completed;
 
     public Todo(String ownerId, String title, String description, List<String> tags) {
         this.documentId = this.generateId();
