@@ -26,8 +26,14 @@ public class TodoController {
         this.todoService = todoService;
     }
 
+    /**
+     * Get todos that the user has.
+     * @param principal Authenticated user
+     * @param filterBy Filter by to do tags
+     * @return List of todos
+     */
     @GetMapping(path = "/todo", produces = "application/json")
-    public List<Todo> getAllTodosForUser(@AuthenticationPrincipal UserDetail principal, @RequestParam(required = false) String filterBy) {
+    public List<Todo> getTodos(@AuthenticationPrincipal UserDetail principal, @RequestParam(required = false) String filterBy) {
         // Get current user
         String principalUserId = principal.getPrincipalUser().getUserId();
 
@@ -44,6 +50,12 @@ public class TodoController {
         return todos;
     }
 
+    /**
+     * Get a to do with the given id
+     * @param id To do id.
+     * @param principal Authenticated user
+     * @return To do object
+     */
     @GetMapping(path = "/todo/{id}", produces = "application/json")
     public ResponseEntity<Object> getTodo(@PathVariable  String id, @AuthenticationPrincipal UserDetail principal) {
         // Get current user Id.
@@ -76,6 +88,12 @@ public class TodoController {
         return responseEntity;
     }
 
+    /**
+     * Create a new to do object
+     * @param todo To do object
+     * @param principal Authenticated user
+     * @return Created To do object
+     */
     @PostMapping(path = "/todo", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Todo createNewTodo(@RequestBody Todo todo,
@@ -92,6 +110,13 @@ public class TodoController {
         return todo;
     }
 
+    /**
+     * Update a to do object
+     * @param todo To do object that contains the updated data. Only updated fields are enough.
+     * @param id To do document id
+     * @param principal Authenticated user
+     * @return Updated to do object
+     */
     @PutMapping(path = "/todo/{id}")
     public ResponseEntity<Object> updateTodo(@RequestBody Todo todo,
                                              @PathVariable String id,
@@ -128,6 +153,11 @@ public class TodoController {
     }
 
 
+    /**
+     * Delete a to do object with the given id
+     * @param id To do object id which is going to be deleted
+     * @return Message for operation
+     */
     @DeleteMapping(path = "/todo/{id}")
     public ResponseEntity<Object> deleteTodo(@PathVariable String id){
         String todoId = "todo::"+id;

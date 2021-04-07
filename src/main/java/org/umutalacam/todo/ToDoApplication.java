@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.umutalacam.todo.service.TodoService;
 import org.umutalacam.todo.service.UserService;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableWebSecurity
+@EnableSwagger2
 public class ToDoApplication {
     TodoService todoService;
     UserService userService;
