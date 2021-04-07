@@ -31,5 +31,8 @@ public class CouchbaseDataConfiguration extends AbstractCouchbaseConfiguration {
         return "type";
     }
 
-
+    @Override
+    protected boolean autoIndexCreation() {
+        return true;
+    }
 }

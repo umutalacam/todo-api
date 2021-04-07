@@ -1,12 +1,15 @@
 package org.umutalacam.todo.security;
 
-import com.sun.tools.javac.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.umutalacam.todo.data.entity.User;
+import sun.java2d.pipe.SpanShapeRenderer;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserDetail implements UserDetails {
 
@@ -18,7 +21,9 @@ public class UserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
+        List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>(1);
+        grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
+        return grantedAuthorities;
     }
 
     @Override

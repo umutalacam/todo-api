@@ -1,7 +1,5 @@
 package org.umutalacam.todo.security;
 
-import com.sun.istack.internal.NotNull;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -54,7 +52,7 @@ public class UserDataValidator {
         return user;
     }
 
-    public static String validateUsername(@NotNull String username) throws InvalidAttributeValueException {
+    public static String validateUsername(String username) throws InvalidAttributeValueException {
         if (username.isEmpty())
             throw new InvalidAttributeValueException("Username can't be empty.");
 
@@ -72,7 +70,7 @@ public class UserDataValidator {
         return username;
     }
 
-    public static String validatePassword(@NotNull String password) throws InvalidAttributeValueException {
+    public static String validatePassword(String password) throws InvalidAttributeValueException {
         if (password.isEmpty())
             throw new InvalidAttributeValueException("Password can't be empty.");
 

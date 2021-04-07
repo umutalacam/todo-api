@@ -1,0 +1,15 @@
+org/umutalacam/todo/controller/TodoController.class
+org/umutalacam/todo/data/entity/User.class
+org/umutalacam/todo/service/UserService.class
+org/umutalacam/todo/data/CouchbaseDataConfiguration.class
+org/umutalacam/todo/data/repository/TodoRepository.class
+org/umutalacam/todo/security/UserDetail.class
+org/umutalacam/todo/data/entity/Todo.class
+org/umutalacam/todo/service/TodoService.class
+org/umutalacam/todo/data/entity/Identifiable.class
+org/umutalacam/todo/data/repository/UserRepository.class
+org/umutalacam/todo/security/UserDataValidator.class
+org/umutalacam/todo/security/UserDetailService.class
+org/umutalacam/todo/ToDoApplication.class
+org/umutalacam/todo/security/SecurityConfiguration.class
+org/umutalacam/todo/controller/RegisterController.class
