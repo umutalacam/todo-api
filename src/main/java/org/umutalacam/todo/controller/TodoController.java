@@ -8,6 +8,7 @@ import org.umutalacam.todo.data.entity.Todo;
 import org.umutalacam.todo.security.UserDetail;
 import org.umutalacam.todo.service.TodoService;
 
+import javax.management.InvalidAttributeValueException;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
@@ -96,9 +97,8 @@ public class TodoController {
      */
     @PostMapping(path = "/todo", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Todo createNewTodo(@RequestBody Todo todo,
+    public ResponseEntity<Object> createNewTodo(@RequestBody Todo todo,
                               @AuthenticationPrincipal UserDetail principal) {
-        // TODO: Test for bad requests
         // Get current user
         String principalUserId = principal.getPrincipalUser().getUserId();
         // Set owner of task
@@ -106,8 +106,14 @@ public class TodoController {
         todo.setDocumentId(todo.generateId());
         // Set created date
         todo.setCreated(Instant.now().toEpochMilli());
-        this.todoService.saveTodo(todo);
-        return todo;
+        try {
+            this.todoService.saveTodo(todo);
+        } catch (InvalidAttributeValueException e) {
+            HashMap<String, String> errorMessage = new HashMap<>();
+            errorMessage.put("error", e.getMessage());
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(todo, HttpStatus.OK);
     }
 
     /**
@@ -144,6 +150,8 @@ public class TodoController {
             // Update to do
             todo.setCreated(oldTodo.getCreated());
             todo.setModified(Instant.now().toEpochMilli());
+            if (todo.getCompleted() != 0) todo.setCompleted(Instant.now().toEpochMilli());
+
             todo.setDocumentId(oldTodo.getDocumentId());
             todoService.updateTodo(todo);
             responseEntity = new ResponseEntity<>(todo, HttpStatus.OK);

@@ -1,6 +1,6 @@
 package org.umutalacam.todo.controller;
 
-import org.omg.CORBA.DynAnyPackage.Invalid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +28,12 @@ public class RegisterController {
         HashMap<String, Object> responseBody = new HashMap<>();
 
         try {
-            UserDataValidator.validateUserForInsertion(user);
+            UserDataValidator.validateUserForInsertion(user, true);
             userService.createNewUser(user);
             responseBody.put("message", "User registered successfully");
             return new ResponseEntity<>(responseBody, HttpStatus.OK);
 
-        } catch (InvalidAttributeValueException exception) {
+        } catch (InvalidAttributeValueException | DataIntegrityViolationException exception) {
             System.err.println("Bad request on register!");
             responseBody.put("error", exception.getMessage());
             return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
@@ -42,7 +42,6 @@ public class RegisterController {
             responseBody.put("error", "Internal server error");
             exception.printStackTrace();
             return new ResponseEntity<>(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
 
     }

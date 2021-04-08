@@ -17,45 +17,24 @@ import org.springframework.data.couchbase.core.mapping.Field;
 @NoArgsConstructor
 public class User implements Identifiable {
     @Id
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userId;
     @Field
-    @NotNull
     private String username;
     @Field
-    @NotNull
     private String firstName;
     @Field
-    @NotNull
     private String lastName;
     @Field
-    @NotNull
     private String email;
     @Field
-    @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonAlias("password")
     private String password;
-
-    public User(String username, String firstName, String lastName, String email) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = "";
-        this.userId = generateId();
-    }
-
-    public User(String username, String firstName, String lastName, String email, String password) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.userId = generateId();
-    }
 
     @Override
     public String generateId() {
         return "user::"+ this.username;
     }
+
 }

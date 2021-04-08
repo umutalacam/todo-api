@@ -1,11 +1,14 @@
 package org.umutalacam.todo.service;
 
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.umutalacam.todo.data.entity.Todo;
 import org.umutalacam.todo.data.entity.User;
 import org.umutalacam.todo.data.repository.TodoRepository;
 
+import javax.management.InvalidAttributeValueException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,12 +20,10 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public void saveTodoForUser(User user, Todo todo) {
-        todo.setOwnerId(user.getUserId());
-        saveTodo(todo);
-    }
-
-    public void saveTodo(Todo todo) {
+    public void saveTodo(Todo todo) throws InvalidAttributeValueException {
+        if (todo.getTitle() == null) throw new InvalidAttributeValueException("Todo title is required.");
+        if (todo.getDescription() == null) throw new InvalidAttributeValueException("Todo description is required.");
+        if (todo.getTags() == null) todo.setTags(new ArrayList<>(1));
         todoRepository.save(todo);
     }
 

@@ -24,20 +24,19 @@ public class UserDataValidator {
         passwordEncoder = new BCryptPasswordEncoder();
     }
 
-
     /**
      * Validate given user object's data and encode password, then return the object itself if validation is correct.
      * @param user User that is going to be validated.
      * @return The same user object
      * @throws InvalidAttributeValueException | Exception
      */
-    public static User validateUserForInsertion(User user) throws InvalidAttributeValueException {
+    public static User validateUserForInsertion(User user, boolean encodePassword) throws InvalidAttributeValueException {
         String username = user.getUsername();
         String password = user.getPassword();
 
         // Validate username and password
         validateUsername(username);
-        validatePassword(password);
+        if (encodePassword) validatePassword(password);
 
         // Validate other required fields
         if (user.getUserId() == null) user.setUserId(user.generateId());
@@ -46,8 +45,10 @@ public class UserDataValidator {
         if (user.getEmail() == null) throw new InvalidAttributeValueException("Email field can't be empty");
 
         // Encode password
-        String encodedPassword = passwordEncoder.encode(password);
-        user.setPassword(encodedPassword);
+        if (encodePassword) {
+            String encodedPassword = passwordEncoder.encode(password);
+            user.setPassword(encodedPassword);
+        }
 
         return user;
     }
@@ -61,11 +62,6 @@ public class UserDataValidator {
 
         if (!username.matches("[A-z0-9]+"))
             throw new InvalidAttributeValueException("Username can't include special characters.");
-
-        // Check if username is already taken
-        User user = userService.getUserByUsername(username);
-        if (user != null)
-            throw new InvalidAttributeValueException("Username already exists.");
 
         return username;
     }

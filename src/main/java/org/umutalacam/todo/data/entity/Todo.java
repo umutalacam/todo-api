@@ -20,20 +20,16 @@ public class Todo implements Identifiable{
     @Id
     private String documentId;
 
-    @NotNull
     @Field
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String ownerId;
 
-    @NotNull
     @Field
     private String title;
 
-    @NotNull
     @Field
     private String description;
 
-    @NotNull
     @Field
     private List<String> tags;
 

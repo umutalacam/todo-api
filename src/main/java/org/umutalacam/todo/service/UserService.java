@@ -27,8 +27,9 @@ public class UserService {
 
     public void updateUser(User user) {
         String username = user.getUsername();
-        User u = getUserByUsername(username);
-        if (u == null) {
+        User oldUser = getUserById(user.getUserId());
+        // Ensure data integrity
+        if (oldUser == null) {
             throw new DataIntegrityViolationException("User does not exist.");
         } else {
             userRepository.save(user);
@@ -38,7 +39,6 @@ public class UserService {
     public void deleteUserById(String userId){
         userRepository.deleteById(userId);
     }
-
 
     public User getUserById(String userId){
         return userRepository.getUserByUserId(userId);
@@ -51,4 +51,5 @@ public class UserService {
     public User getUserByEmail(String email){
         return userRepository.getUserByEmail(email);
     }
+
 }
