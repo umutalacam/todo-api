@@ -1,0 +1,16 @@
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/data/repository/UserRepository.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/data/entity/Identifiable.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/security/UserDetailService.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/data/CouchbaseDataConfiguration.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/data/entity/User.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/ToDoApplication.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/data/entity/Todo.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/security/UserDataValidator.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/controller/UserController.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/service/TodoService.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/controller/TodoController.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/service/UserService.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/security/SecurityConfiguration.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/data/repository/TodoRepository.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/security/UserDetail.java
+/Users/oredata/IdeaProjects/ToDoAPI/src/main/java/org/umutalacam/todo/controller/RegisterController.java

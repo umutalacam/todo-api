@@ -6,7 +6,7 @@
 
     <groupId>org.umutalacam</groupId>
     <artifactId>todo</artifactId>
-    <version>0.0.2-SNAP</version>
+    <version>0.0.3-SNAP</version>
 
 
     <properties>
