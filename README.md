@@ -11,8 +11,7 @@ In this application I have developed the REST API for a To-Do application. The b
 - Users can delete To-Do records.
 - Users can update their own personal data through `/user` endpoint.
 
-More information about endpoints can be found at this Postman documentation: [https://documenter.getpostman.com/view/14145413/TzCTZ5bv
-](URL)
+More information about endpoints can be found at this Postman documentation: https://documenter.getpostman.com/view/14145413/TzCTZ5bv
 
 ## MVC Alternative to this project (Taskcase)
 I also developed an Spring MVC application which has a use case very similar. The project respository can be found at: [https://github.com/umutalacam/taskcase](URL)
